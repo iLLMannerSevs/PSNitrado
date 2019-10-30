@@ -72,6 +72,7 @@
     FunctionsToExport = @(
         'Export-NitradoToken'
         'Get-NitradoGameserver'
+        'Get-NitradoGameserverBackup'
         'Get-NitradoMaintenance'
         'Get-NitradoService'
         'Get-NitradoToken'

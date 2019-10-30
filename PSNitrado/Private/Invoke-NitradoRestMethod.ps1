@@ -69,17 +69,17 @@ function Invoke-NitradoRestMethod
         {
           Write-Warning -Message ('OK. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
-        404
+        401
         {
-          Write-Warning -Message ('Page or object not found. Uri: {0} Method: {1}' -f $Uri, $Method)
+          Write-Warning -Message ('The provided access token is not valid (anymore). Uri: {0} Method: {1}' -f $Uri, $Method)
         }
-        405
+        429
         {
-          Write-Warning -Message ('Not allowed. Uri: {0} Method: {1}' -f $Uri, $Method)
+          Write-Warning -Message ('The rate limit has been exceeded. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
-        422
+        503
         {
-          Write-Warning -Message ('Unprocessable Entity. Uri: {0} Method: {1}' -f $Uri, $Method)
+          Write-Warning -Message ('Maintenance. API is currently not available. Please come back in a few minutes and try it again. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
         default
         {

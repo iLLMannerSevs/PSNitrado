@@ -5,18 +5,12 @@ $TokenName = '.nitradotoken'
 [int]$GameserverId = 4089632
 
 $Token = Get-NitradoToken -Path ('{0}/{1}' -f $TokenPath, $TokenName)
-Get-NitradoGameserver -Token $Token -Id $GameserverId
+Get-NitradoGameserverBackup -Token $Token -Id $GameserverId
 
 <#
+Get-NitradoGameserver -Token $Token -Id $GameserverId
 Get-NitradoService -Token $Token
 Get-NitradoPing -Token $Token
 Get-NitradoUser -Token $Token
 Get-NitradoMaintenance -Token $Token
-
-$Properties = @{
-  Token = 'Ox7YqB_8X7DPbGssVj5lw8v-VBzBYnyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdHmNsWBRwHNu5TMO3ncHg2G9OVARG0jpiE6'
-  Path  = $TokenPath
-  Name  = $TokenName
-}
-Export-NitradoToken @Properties
 #>
