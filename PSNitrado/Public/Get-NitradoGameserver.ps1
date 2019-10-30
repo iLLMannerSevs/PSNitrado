@@ -1,4 +1,4 @@
-function Get-NitradoMaintenance
+function Get-NitradoGameserver
 {
   <#
     .SYNOPSIS
@@ -18,30 +18,26 @@ function Get-NitradoMaintenance
   (
     [Parameter(Mandatory)]
     [string]
-    $Token
+    $Token,
+
+    [Parameter(Mandatory)]
+    [int]
+    $Id
   )
 
   begin
   {
-    $BaseURL = 'https://api.nitrado.net/maintenance'
+    $BaseURL = 'https://api.nitrado.net/services'
 
     $Params = @{
       Token  = $Token
       Method = 'Get'
     }
-    $PropertyColl = @{
-      'Bool' = @(
-        'cloud_backend',
-        'domain_backend'
-        'dns_backend'
-        'pmacct_backend'
-      )
-    }
   }
   process
   {
-    $Params.Add('Uri', ('{0}' -f $BaseURL))
-    (Invoke-NitradoRestMethod @Params).data.maintenance
+    $Params.Add('Uri', ('{0}/{1}/gameservers' -f $BaseURL, $Id))
+    (Invoke-NitradoRestMethod @Params).data.gameserver
   }
   end
   {

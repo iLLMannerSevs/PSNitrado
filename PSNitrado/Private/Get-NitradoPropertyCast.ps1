@@ -2,7 +2,7 @@ function Get-NitradoPropertyCast
 {
   <#
   .EXAMPLE
-  Get-NitradoPropertyCast -APIObjectColl $APIObjectColl -CastedPropertyColl $CastedPropertyColl
+  Get-NitradoPropertyCast -APIObjectColl $APIObjectColl -PropertyColl $PropertyColl
 
   #>
 
@@ -17,14 +17,39 @@ function Get-NitradoPropertyCast
 
   begin
   {
+    #$APIObjectColl
+    #$PropertyColl
+
   }
   process
   {
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $CastedPropertyColl = @{ }
+      <#
+      foreach ($ObjectProperty in $PropertyColl.Object)
+      {
+        $Name = ((Get-Culture).TextInfo.ToTitleCase($ObjectProperty).Split('_') -join '').Replace(' ', '')
+        if ($APIObject.($ObjectProperty))
+        {
+          $ChildColl = $APIObject.($ObjectProperty) | Get-Member -Type NoteProperty | Foreach-Object {
+            @{
+              $_.Name = ($APIObject.($ObjectProperty))."$($_.Name)"
+            }
+          }
+          #$CastedPropertyColl.Add(('{0}{1}' -f $Name, $_.Name), $Value)
+          $Value = Get-NitradoPropertyCast -APIObjectColl $ChildColl -PropertyColl $PropertyColl
+          $CastedPropertyColl.Add(('{0}{1}' -f $Name, $_.Name), $Value)
+        }
+        #$CastedPropertyColl.Add($Name, $Value)
+      }
+      #>
       foreach ($StringProperty in $PropertyColl.String)
       {
+        if ($StringProperty -eq 'saddress')
+        {
+          $StringProperty = 'ipaddress'
+        }
         $Name = ((Get-Culture).TextInfo.ToTitleCase($StringProperty).Split('_') -join '').Replace(' ', '')
         if ($APIObject.($StringProperty))
         {
@@ -44,8 +69,11 @@ function Get-NitradoPropertyCast
       foreach ($BoolProperty in $PropertyColl.Bool)
       {
         $Name = ((Get-Culture).TextInfo.ToTitleCase($BoolProperty).Split('_') -join '').Replace(' ', '')
-        $Value = [System.Convert]::ToBoolean($APIObject.($BoolProperty))
-        $CastedPropertyColl.Add($Name, $Value)
+        if ($APIObject.($BoolProperty))
+        {
+          $Value = [System.Convert]::ToBoolean($APIObject.($BoolProperty))
+          $CastedPropertyColl.Add($Name, $Value)
+        }
       }
       foreach ($DatetimeProperty in $PropertyColl.Datetime)
       {
@@ -76,9 +104,13 @@ function Get-NitradoPropertyCast
       }
       New-Object psobject -Property $CastedPropertyColl
     }
-    $Result
+    $Result #| Get-Member
+    #>
   }
   end
   {
   }
 }
+
+<#
+#>

@@ -37,11 +37,8 @@ function Get-NitradoPing
   }
   process
   {
-
     $Params.Add('Uri', ('{0}' -f $BaseURL))
-    $APIObjectColl = (Invoke-NitradoRestMethod @Params)
-    $Result = Get-NitradoPropertyCast -APIObjectColl $APIObjectColl -PropertyColl $PropertyColl
-    $Result.message
+    (Invoke-NitradoRestMethod @Params).message
   }
   end
   {
