@@ -1,4 +1,4 @@
-function Get-NitradoStatus
+function Get-NitradoPing
 {
   [cmdletbinding()]
   param
@@ -18,8 +18,8 @@ function Get-NitradoStatus
     [Parameter(Mandatory)]
     $WebSession,
     
-    [Bool]
-    $SkipCertificateCheck = $true
+    [Switch]
+    $SkipCertificateCheck
   )
 
   Begin
