@@ -45,13 +45,11 @@ function Invoke-NitradoRestMethod
 
   begin
   {
-    Invoke-ZammadTrustSelfSignedCertificate
   }
   process
   {
     try
     {
-      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       $PSBoundParameters.Add('Headers', @{Authorization = ("Bearer {0}" -f $Token) })
       $null = $PSBoundParameters.Remove('Token')
       $PSBoundParameters.Add('ContentType', 'application/json; charset=utf-8')
