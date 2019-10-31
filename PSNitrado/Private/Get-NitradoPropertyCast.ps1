@@ -23,7 +23,6 @@ function Get-NitradoPropertyCast
     $TypeColl = $PropertyColl.GetEnumerator().Name
     $Result = foreach ($Type in $TypeColl)
     {
-      #$Type
       foreach ($Property in $PropertyColl.$($Type))
       {
         $Name = ((Get-Culture).TextInfo.ToTitleCase($Property).Split('_').Split('.') -join '').Replace(' ', '')
