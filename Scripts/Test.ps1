@@ -1,4 +1,6 @@
-Import-Module ../PSNitrado/PSNitrado.psm1 -Force
+$DSC = [IO.Path]::DirectorySeparatorChar
+
+Import-Module ('..{0}PSNitrado{0}PSNitrado.psm1' -f $DSC) -Force
 
 $TokenPath = [Environment]::GetEnvironmentVariable('HOME')
 $TokenName = '.nitradotoken'
