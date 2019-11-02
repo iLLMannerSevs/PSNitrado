@@ -10,7 +10,7 @@ function Export-NitradoToken
     .EXAMPLE
     $Properties = @{
       Token    = 'Ox7YqB_8X7DPbGssVj5lw8v-VBzBYnyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdHmNsWBRwHNu5TMO3ncHg2G9OVARG0jpiE6'
-      Path     = $Env:HOME
+      Path     = [Environment]::GetEnvironmentVariable('HOME')
       Name     = '.nitradotoken'
     }
     Export-NitradoToken @Properties
@@ -47,8 +47,8 @@ function Export-NitradoToken
   {
     try
     {
-      ConvertTo-SecureString –String $Token -AsPlainText -Force |
-        Export-Clixml -Path ('{0}/{1}' -f $Path, $Name)
+      ConvertTo-SecureString -String $Token -AsPlainText -Force |
+      Export-Clixml -Path ('{0}/{1}' -f $Path, $Name)
     }
     catch
     {
