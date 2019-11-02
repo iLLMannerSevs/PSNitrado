@@ -1,6 +1,6 @@
 Import-Module ../PSNitrado/PSNitrado.psm1 -Force
 
-$TokenPath = $Env:HOME
+$TokenPath = [Environment]::GetEnvironmentVariable('HOME')
 $TokenName = '.nitradotoken'
 [int]$GameserverId = 4089632
 
