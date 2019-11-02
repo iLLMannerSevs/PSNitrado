@@ -73,6 +73,7 @@
     'Export-NitradoToken'
     'Get-NitradoGameserver'
     'Get-NitradoGameserverBackup'
+    'Get-NitradoGameserverFile'
     'Get-NitradoMaintenance'
     'Get-NitradoService'
     'Get-NitradoToken'

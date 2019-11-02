@@ -29,20 +29,16 @@ function Get-NitradoFunctionString
   /search?query=smith&limit=10&expand=true'
   ?expand=true&page=1&per_page=5 HTTP/1.1
 
-
+  ?dir=/games/ni1429468_1/noftp/dayzps/config/&search=*.ADM
   #>
 
   [CmdletBinding()]
   param (
-    [Parameter(Mandatory)]
     [string]
-    $Query,
+    $Search,
 
-    [int]
-    $Limit,
-
-    [switch]
-    $Expand
+    [string]
+    $Dir
   )
 
   begin
@@ -56,11 +52,6 @@ function Get-NitradoFunctionString
       {
         switch ($item)
         {
-          { $_.Key -eq 'Expand' }
-          {
-            $Value = 'true'
-            continue
-          }
           { $_.Value -is [int] }
           {
             $Value = ($item.Value).toString()
@@ -74,7 +65,7 @@ function Get-NitradoFunctionString
       }
       $FunctionString += ('&{0}={1}' -f $($item.Key).ToLower(), $Value)
     }
-    $FunctionString -replace ('^&', '/search?')
+    $FunctionString -replace ('^&', '?')
   }
   end
   {
