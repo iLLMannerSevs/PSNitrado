@@ -56,9 +56,10 @@ function Invoke-NitradoRestMethod
       $PSBoundParameters.Add('ErrorAction', 'Stop')
       Invoke-RestMethod @PSBoundParameters
     }
-    catch [System.Net.WebException]
+    catch
     {
-      switch ($($PSItem.Exception.Response.StatusCode.value__))
+      $Response = $($_.Exception | Select-Object -ExpandProperty 'Response' -ErrorAction Ignore)
+      switch ($($Response.StatusCode.value__))
       {
         201
         {
@@ -73,6 +74,10 @@ function Invoke-NitradoRestMethod
         {
           Write-Warning -Message ('The provided access token is not valid (anymore). Uri: {0} Method: {1}' -f $Uri, $Method)
         }
+        404
+        {
+          Write-Warning -Message ('Uri not found. Uri: {0} Method: {1}' -f $Uri, $Method)
+        }
         429
         {
           Write-Warning -Message ('The rate limit has been exceeded. Uri: {0} Method: {1}' -f $Uri, $Method)
@@ -83,7 +88,7 @@ function Invoke-NitradoRestMethod
         }
         default
         {
-          Write-Warning -Message ('Some error occured, see HTTP status code for further details. Uri: {0} Method: {1}' -f $Uri, $Method)
+          Write-Warning -Message ('Some error occured, see HTTP status code for further details. Uri: {0} Method: {1}.' -f $Uri, $Method)
         }
       }
     }
