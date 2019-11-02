@@ -37,10 +37,7 @@ function Invoke-NitradoRestMethod
     [Parameter(Mandatory)]
     [ValidateSet('Get', 'Post', 'Delete', 'Patch', 'Put')]
     [string]
-    $Method,
-
-    [Bool]
-    $SkipCertificateCheck
+    $Method
   )
 
   begin
