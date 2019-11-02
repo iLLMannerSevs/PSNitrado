@@ -13,7 +13,7 @@ function Get-NitradoPing
     Get-NitradoPing -Token $Token
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'All')]
+  [CmdletBinding()]
   Param
   (
     [Parameter(Mandatory)]
@@ -28,11 +28,6 @@ function Get-NitradoPing
     $Params = @{
       Token  = $Token
       Method = 'Get'
-    }
-    $PropertyColl = @{
-      'String' = @(
-        'message'
-      )
     }
   }
   process

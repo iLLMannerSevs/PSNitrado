@@ -13,7 +13,7 @@ function Get-NitradoMaintenance
     Get-NitradoMaintenance -Token $Token
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'All')]
+  [CmdletBinding()]
   Param
   (
     [Parameter(Mandatory)]
@@ -28,14 +28,6 @@ function Get-NitradoMaintenance
     $Params = @{
       Token  = $Token
       Method = 'Get'
-    }
-    $PropertyColl = @{
-      'Bool' = @(
-        'cloud_backend',
-        'domain_backend'
-        'dns_backend'
-        'pmacct_backend'
-      )
     }
   }
   process

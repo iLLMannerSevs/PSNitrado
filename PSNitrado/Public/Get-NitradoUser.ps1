@@ -13,7 +13,7 @@ function Get-NitradoUser
     Get-NitradoMaintenance -Token $Token
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'All')]
+  [CmdletBinding()]
   Param
   (
     [Parameter(Mandatory)]
@@ -24,7 +24,6 @@ function Get-NitradoUser
   begin
   {
     $BaseURL = 'https://api.nitrado.net/user'
-
     $Params = @{
       Token  = $Token
       Method = 'Get'

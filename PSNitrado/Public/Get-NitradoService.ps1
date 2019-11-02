@@ -13,7 +13,7 @@ function Get-NitradoService
     Get-NitradoMaintenance -Token $Token
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'All')]
+  [CmdletBinding()]
   Param
   (
     [Parameter(Mandatory)]

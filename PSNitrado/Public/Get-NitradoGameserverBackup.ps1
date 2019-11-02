@@ -13,7 +13,7 @@ function Get-NitradoGameserverBackup
     Get-NitradoMaintenance -Token $Token
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'All')]
+  [CmdletBinding()]
   Param
   (
     [Parameter(Mandatory)]
