@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-NitradoUser
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get user details.
 
 ## SYNTAX
 
@@ -17,21 +17,37 @@ Get-NitradoUser [-Token] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get user details from the Nitrado API.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-NitradoUser -Token $Token
+
+user_id     : 3027212
+username    : mmustermann
+activated   : True
+timezone    : Europe/Berlin
+email       : mmustermann@gmail.com
+credit      : 0
+currency    : EUR
+registered  : 2019-03-03T13:01:42
+language    : deu
+avatar      :
+donations   : True
+phone       : @{number=; country_code=; verified=False}
+two_factor  : {}
+profile     : @{name=; street=; postcode=; city=; country=DE; state=; country_and_state_verified=True}
+permissions : {CLOUDSERVER}
+employee    : False
 ```
 
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -Token
-{{ Fill Token Description }}
+Token for the API call
 
 ```yaml
 Type: String
@@ -58,3 +74,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+https://doc.nitrado.net/#api-User-Details
