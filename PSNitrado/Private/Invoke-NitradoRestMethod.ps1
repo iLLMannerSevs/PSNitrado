@@ -2,20 +2,34 @@ function Invoke-NitradoRestMethod
 {
   <#
     .SYNOPSIS
-    Invoke-RestMethod Wrapper for macmon API
+    Invoke-RestMethod Wrapper for Nitrado API
 
     .DESCRIPTION
-    Invoke-RestMethod Wrapper for macmon API
+    Invoke-RestMethod Wrapper for Nitrado API
 
     .EXAMPLE
-    $Properties = @{
-      $Token = Get-NitradoToken -Path ('{0}/.nitradotoken' -f $Env:HOME)
-      ...
+    $BaseURL = 'https://api.nitrado.net/user'
+    $Params = @{
+      Token  = $Token
+      Method = 'Get'
     }
-    Invoke-ZammadRestMethod -Token $Token -Uri $Uri -Method 'Get'
+    $Params.Add('Uri', ('{0}' -f $BaseURL))
+    $Result = (Invoke-NitradoRestMethod @Params).data.user
+    $Result
 
-    .NOTES
-     n.a.
+    .EXAMPLE
+    $BaseURL = 'https://api.nitrado.net/services'
+    $Params = @{
+      Token  = $Token
+      Method = 'Get'
+    }
+    $Params.Add('Uri', ('{0}/{1}/gameservers/file_server/download?file={2}' -f $BaseURL, $Id, $File))
+    $Result = (Invoke-NitradoRestMethod @Params).data.token
+    $FileName = ([regex]::match($File, '^.+\/(?<FileName>.+)$').captures.groups).Where{
+      $_.Name -eq 'FileName'
+    }.Value
+    Invoke-WebRequest -Uri $Result.url -OutFile ('{0}{1}' -f $Path, $FileName)
+
     #>
 
   [CmdletBinding()]

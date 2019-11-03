@@ -1,18 +1,5 @@
 function Get-NitradoUser
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoMaintenance -Token $Token
-  #>
-
   [CmdletBinding()]
   Param
   (
