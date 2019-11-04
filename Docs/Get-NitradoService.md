@@ -77,7 +77,7 @@ roles                   : {ROLE_WEBINTERFACE_GENERAL_CONTROL, ROLE_WEBINTERFACE_
 
 ### Example 2
 ```
-Get-NitradoService -Token $Token -Id 4087452
+4087452 | Get-NitradoService -Token $Token
 
 id                      : 4087452
 location_id             : 2
@@ -114,7 +114,7 @@ Aliases:
 Required: False
 Position: Benannt
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
