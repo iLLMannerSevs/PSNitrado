@@ -1,39 +1,41 @@
 function Get-NitradoService
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoMaintenance -Token $Token
-  #>
-
-  [CmdletBinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   Param
   (
     [Parameter(Mandatory)]
     [string]
-    $Token
+    $Token,
+
+    [Parameter(ParameterSetName = 'Id')]
+    [int]
+    $Id
   )
 
   begin
   {
     $BaseURL = 'https://api.nitrado.net/services'
-
+  }
+  process
+  {
     $Params = @{
       Token  = $Token
       Method = 'Get'
     }
-  }
-  process
-  {
-    $Params.Add('Uri', ('{0}' -f $BaseURL))
-    (Invoke-NitradoRestMethod @Params).data.services
+    switch ($PsCmdlet.ParameterSetName)
+    {
+      'All'
+      {
+        $Params.Add('Uri', ('{0}' -f $BaseURL))
+        $Result = (Invoke-NitradoRestMethod @Params).data.services
+      }
+      'Id'
+      {
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
+        $Result = (Invoke-NitradoRestMethod @Params).data.service
+      }
+    }
+    $Result
   }
   end
   {
