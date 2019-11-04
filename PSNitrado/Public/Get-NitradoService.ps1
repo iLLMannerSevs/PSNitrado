@@ -7,7 +7,7 @@ function Get-NitradoService
     [string]
     $Token,
 
-    [Parameter(ParameterSetName = 'Id')]
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Id')]
     [int]
     $Id
   )
