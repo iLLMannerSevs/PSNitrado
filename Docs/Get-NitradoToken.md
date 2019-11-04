@@ -9,6 +9,8 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
+Get Token from Secure String.
+
 ## SYNTAX
 
 ```
@@ -16,19 +18,21 @@ Get-NitradoToken [-Path] <FileInfo> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get Token from Secure String for use in the Nitrado API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### Example 1
 ```
 Get-NitradoToken -Path ('{0}/.nitradotoken' -f $Env:HOME)
+
+Ox7YqB_9X7DPbGssDE98w8v-VBz4KdyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdKnfsWBRwHNi4GMO32hHg2G9OVAlG0jpiF8
 ```
 
 ## PARAMETERS
 
 ### -Path
-{{ Fill Path Description }}
+Path to the Token file
 
 ```yaml
 Type: FileInfo
