@@ -15,13 +15,13 @@ function Get-NitradoService
   begin
   {
     $BaseURL = 'https://api.nitrado.net/services'
-  }
-  process
-  {
     $Params = @{
       Token  = $Token
       Method = 'Get'
     }
+  }
+  process
+  {
     switch ($PsCmdlet.ParameterSetName)
     {
       'All'
