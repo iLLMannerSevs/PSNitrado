@@ -8,6 +8,7 @@ schema: 2.0.0
 # Get-NitradoGameserverFile
 
 ## SYNOPSIS
+Get gameserver files.
 
 ## SYNTAX
 
@@ -22,19 +23,30 @@ Get-NitradoGameserverFile -Token <String> -Id <Int32> [-Search <String>] [-Dir <
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get gameserver files from the Nitrado API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### Example 1
 ```
-Get-NitradoMaintenance -Token $Token
+Get-NitradoGameserverFile -Token $Token -Id 4556459 -Dir '/games/ni1445168_5/ftproot/' -Search '*log'
+
+chmod       : 100666
+accessed_at : 1572717345
+group       : ni1445168_5
+path        : /games/ni1445168_5/ftproot/restart.log
+type        : file
+owner       : ni1445168_5
+name        : restart.log
+size        : 5276
+created_at  : 1573117350
+modified_at : 1573117350
 ```
 
 ## PARAMETERS
 
 ### -Token
-{{ Fill Token Description }}
+Token for the API call
 
 ```yaml
 Type: String
@@ -49,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+Service Id
 
 ```yaml
 Type: Int32
@@ -64,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -Search
-{{ Fill Search Description }}
+Search pattern for specific files
 
 ```yaml
 Type: String
@@ -79,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -Dir
-{{ Fill Dir Description }}
+Directory to list, default value: Home directory
 
 ```yaml
 Type: String
@@ -103,3 +115,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+https://doc.nitrado.net/#api-Gameserver-GameserverFilesList
