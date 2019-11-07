@@ -14,12 +14,13 @@ Get gameserver files.
 
 ### All (Default)
 ```
-Get-NitradoGameserverFile -Token <String> -Id <Int32> [<CommonParameters>]
+Get-NitradoGameserverFile [-Token] <String> [-Id] <Int32> [<CommonParameters>]
 ```
 
 ### Search
 ```
-Get-NitradoGameserverFile -Token <String> -Id <Int32> [-Search <String>] [-Dir <String>] [<CommonParameters>]
+Get-NitradoGameserverFile [-Token] <String> [-Id] <Int32> [[-Search] <String>] [[-Dir] <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,16 +46,16 @@ modified_at : 1573117350
 
 ## PARAMETERS
 
-### -Token
-Token for the API call
+### -Dir
+Directory to list, default value: Home directory
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Search
 Aliases:
 
-Required: True
-Position: Named
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -69,9 +70,9 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: Benannt
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -84,22 +85,22 @@ Parameter Sets: Search
 Aliases:
 
 Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Dir
-Directory to list, default value: Home directory
+### -Token
+Token for the API call
 
 ```yaml
 Type: String
-Parameter Sets: Search
+Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -115,4 +116,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
 https://doc.nitrado.net/#api-Gameserver-GameserverFilesList
