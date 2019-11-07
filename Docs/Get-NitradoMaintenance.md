@@ -9,6 +9,8 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
+Get Global - Maintenance status.
+
 ## SYNTAX
 
 ```
@@ -16,19 +18,23 @@ Get-NitradoMaintenance [-Token] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Global - Maintenance status from the Nitrado API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### Example 1
 ```
 Get-NitradoMaintenance -Token $Token
+
+cloud_backend domain_backend dns_backend pmacct_backend
+------------- -------------- ----------- --------------
+        False          False       False          False
 ```
 
 ## PARAMETERS
 
 ### -Token
-{{ Fill Token Description }}
+Token for the API call
 
 ```yaml
 Type: String
@@ -52,3 +58,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+https://doc.nitrado.net/#api-Global-GetMaintenance
