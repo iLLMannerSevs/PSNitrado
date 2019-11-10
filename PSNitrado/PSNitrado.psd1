@@ -80,7 +80,6 @@
     'Get-NitradoService'
     'Get-NitradoToken'
     'Get-NitradoUser'
-    'Invoke-NitradoRestMethod'
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
@@ -107,22 +106,27 @@
     PSData = @{
 
       # 'Tags' wurde auf das Modul angewendet und unterstützt die Modulermittlung in Onlinekatalogen.
-      Tags = @('Nitrado'
+      Tags         = @('Nitrado'
         'PSEdition_Core'
         'PSEdition_Desktop'
       )
 
       # Eine URL zur Lizenz für dieses Modul.
-      # LicenseUri = ''
+      LicenseUri   = 'https://github.com/falkheiland/PSNitrado/blob/master/LICENSE'
 
       # Eine URL zur Hauptwebsite für dieses Projekt.
-      # ProjectUri = ''
+      ProjectUri   = 'https://github.com/falkheiland/PSNitrado'
 
       # Eine URL zu einem Symbol, das das Modul darstellt.
       # IconUri = ''
 
       # 'ReleaseNotes' des Moduls
-      # ReleaseNotes = ''
+      ReleaseNotes = @'
+# 0.0.1 (10.11.2019)
+
+- Initial release
+
+'@
 
     } # Ende der PSData-Hashtabelle
 
