@@ -8,6 +8,7 @@ schema: 2.0.0
 # Export-NitradoToken
 
 ## SYNOPSIS
+Export Token to Secure String to file.
 
 ## SYNTAX
 
@@ -16,25 +17,24 @@ Export-NitradoToken [-Token] <String> [-Path] <FileInfo> [-Name] <String> [<Comm
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Export Token to Secure String to file for use in the Nitrado API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Properties = @{
-```
-
 Token    = 'Ox7YqB_8X7DPbGssVj5lw8v-VBzBYnyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdHmNsWBRwHNu5TMO3ncHg2G9OVARG0jpiE6'
-  Path     = \[Environment\]::GetEnvironmentVariable('HOME')
+  Path     = ([Environment]::GetEnvironmentVariable('HOME'))
   Name     = '.nitradotoken'
 }
 Export-NitradoToken @Properties
+```
 
 ## PARAMETERS
 
 ### -Token
-{{ Fill Token Description }}
+Token for the API call
 
 ```yaml
 Type: String
@@ -49,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+Path of the Token file
 
 ```yaml
 Type: FileInfo
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+Name of the Token file
 
 ```yaml
 Type: String
