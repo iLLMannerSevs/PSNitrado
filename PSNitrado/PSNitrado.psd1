@@ -76,6 +76,7 @@
     'Get-NitradoGameserverBackup'
     'Get-NitradoGameserverFile'
     'Get-NitradoMaintenance'
+    'Get-NitradoNTTime'
     'Get-NitradoService'
     'Get-NitradoToken'
     'Get-NitradoUser'
