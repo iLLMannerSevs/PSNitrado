@@ -1,18 +1,5 @@
 function Get-NitradoGameserverBackup
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoMaintenance -Token $Token
-  #>
-
   [CmdletBinding()]
   Param
   (
@@ -20,7 +7,7 @@ function Get-NitradoGameserverBackup
     [string]
     $Token,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
     [int]
     $Id
   )
