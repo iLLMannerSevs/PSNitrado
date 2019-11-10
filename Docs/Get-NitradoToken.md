@@ -23,7 +23,7 @@ Get Token from Secure String for use in the Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoToken -Path ('{0}/.nitradotoken' -f $Env:HOME)
 
 Ox7YqB_9X7DPbGssDE98w8v-VBz4KdyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdKnfsWBRwHNi4GMO32hHg2G9OVAlG0jpiF8

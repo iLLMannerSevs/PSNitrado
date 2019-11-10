@@ -22,7 +22,7 @@ Execute Global - Health Check for Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoPing -Token $Token
 
 All systems operate as expected.

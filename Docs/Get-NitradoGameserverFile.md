@@ -29,7 +29,7 @@ Get gameserver files from the Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoGameserverFile -Token $Token -Id 4556459 -Dir '/games/ni1445168_5/ftproot/' -Search '*log'
 
 chmod       : 100666

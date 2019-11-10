@@ -21,8 +21,8 @@ Get NT Time from Nitrado Time
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 Get-NitradoNTTime -Time '1572586007'
 ```
 

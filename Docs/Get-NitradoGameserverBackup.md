@@ -23,7 +23,7 @@ Get gameserver backups from the Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoGameserverBackup -Token $Token -Id 4311229
 
 database                          gameserver
@@ -32,7 +32,7 @@ database                          gameserver
 ```
 
 ### Example 2
-```
+```powershell
 (Get-NitradoGameserverBackup -Token $Token -Id 4311229).gameserver.dayzps[0]
 
 backup_size      : 33355990

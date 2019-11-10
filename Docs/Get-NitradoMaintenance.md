@@ -23,7 +23,7 @@ Global - Maintenance status from the Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoMaintenance -Token $Token
 
 cloud_backend domain_backend dns_backend pmacct_backend

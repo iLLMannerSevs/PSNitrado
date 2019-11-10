@@ -29,7 +29,7 @@ Get service details from the Nitrado API.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 Get-NitradoService -Token $Token
 
 id                      : 4087452
@@ -76,7 +76,7 @@ roles                   : {ROLE_WEBINTERFACE_GENERAL_CONTROL, ROLE_WEBINTERFACE_
 ```
 
 ### Example 2
-```
+```powershell
 4087452 | Get-NitradoService -Token $Token
 
 id                      : 4087452
