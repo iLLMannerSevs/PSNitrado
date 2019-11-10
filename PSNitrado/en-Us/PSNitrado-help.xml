@@ -1,0 +1,1238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Export-NitradoGameserverFile</command:name>
+      <command:verb>Export</command:verb>
+      <command:noun>NitradoGameserverFile</command:noun>
+      <maml:description>
+        <maml:para>Download gameserver file.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Download gameserver file from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Export-NitradoGameserverFile</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Gameserver Id</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="2" aliases="none">
+          <maml:name>File</maml:name>
+          <maml:Description>
+            <maml:para>Path of the file to download</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Destination path for the downloaded files</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="2" aliases="none">
+        <maml:name>File</maml:name>
+        <maml:Description>
+          <maml:para>Path of the file to download</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Gameserver Id</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Destination path for the downloaded files</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Export-NitradoGameserverFile -Token $Token -Id 4401233 -Path C:\Temp -File '/games/ni1434321_1/noftp/dayzps/config/DayZServer_PS4_x64.ADM'</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>$Gameserver = Get-NitradoGameserver -Token $Token -Id $GameserverId
+$BasePath = ([regex]::match($Gameserver.game_specific.path, '^(?&lt;Path&gt;.+noftp\/)').captures.groups).Where{ $_.Name -eq 'Path' }.Value
+$Result = foreach ($Logfile in $Gameserver.game_specific.log_files)
+{
+  '{0}{1}' -f $BasePath, $Logfile |
+  Export-NitradoGameserverFile -Token $Token -Id $GameserverId -Path $DestDir
+}
+$Result
+
+url      : https://fileserver.nitrado.net/umkn031/download/?token=250bf9c5-0ce2-46ea-a87f-e392373a34fa
+token    : 250bf9c5-0ce2-46ea-a87f-e392373a34fa
+location : C:\Temp\DayZServer_PS4_x64.ADM
+
+url      : https://fileserver.nitrado.net/umkn031/download/?token=0f32d651-db5d-4468-9b40-51345c53fce7
+token    : 0f32d651-db5d-4468-9b40-51345c53fce7
+location : C:\Temp\DayZServer_PS4_x64_2019_11_09_230540910.ADM
+
+url      : https://fileserver.nitrado.net/umkn031/download/?token=d7d143d8-4c7a-4d64-8926-69f650ba2219
+token    : d7d143d8-4c7a-4d64-8926-69f650ba2219
+location : C:\Temp\DayZServer_PS4_x64_2019_11_09_180221029.ADM
+
+url      : https://fileserver.nitrado.net/umkn031/download/?token=05b8d597-e305-43aa-bff7-f4de9531eb7c
+token    : 05b8d597-e305-43aa-bff7-f4de9531eb7c
+location : C:\Temp\DayZServer_PS4_x64_2019_11_09_130216532.ADM
+
+url      : https://fileserver.nitrado.net/umkn031/download/?token=bbfa03f7-bc9f-442f-9b42-be6290e2e2b3
+token    : bbfa03f7-bc9f-442f-9b42-be6290e2e2b3
+location : C:\Temp\DayZServer_PS4_x64_2019_11_09_090255261.ADM</dev:code>
+        <dev:remarks>
+          <maml:para>Download all logfiles from a Dayz Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Gameserver - Files - Download</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Gameserver-GameserverFilesDownload</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Export-NitradoToken</command:name>
+      <command:verb>Export</command:verb>
+      <command:noun>NitradoToken</command:noun>
+      <maml:description>
+        <maml:para>Export Token to Secure String to file.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Export Token to Secure String to file for use in the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Export-NitradoToken</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Path of the Token file</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>Name of the Token file</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Path of the Token file</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>Name of the Token file</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>$Properties = @{
+Token    = 'Ox7YqB_8X7DPbGssVj5lw8v-VBzBYnyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdHmNsWBRwHNu5TMO3ncHg2G9OVARG0jpiE6'
+  Path     = ([Environment]::GetEnvironmentVariable('HOME'))
+  Name     = '.nitradotoken'
+}
+Export-NitradoToken @Properties</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoGameserver</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoGameserver</command:noun>
+      <maml:description>
+        <maml:para>Get gameserver.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get gameserver from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoGameserver</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Gameserver Id</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Gameserver Id</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoGameserver -Token $Token -Id 4401229
+
+status          : started
+must_be_started : True
+websocket_token : eb3eecdc7cc75aac1ec8737c830f2b45071abab3
+hostsystems     : @{linux=; windows=}
+username        : ni1417448_1
+user_id         : 1417448
+service_id      : 4401229
+location_id     : 6
+minecraft_mode  : False
+ip              : 95.156.171.127
+ipv6            :
+port            : 10800
+query_port      : 10803
+rcon_port       : 10803
+label           : ni
+type            : Gameserver
+memory          : Standard
+memory_mb       : 6144
+game            : dayzps
+game_human      : DayZ (PS4)
+game_specific   : @{path=/games/ni1417448_1/noftp/dayzps/; update_status=up_to_date; last_update=2019-11-07T16:30:30;
+                  path_available=True; features=; log_files=System.Object[]; config_files=System.Object[]}
+modpacks        :
+slots           : 100
+location        : GB
+credentials     : @{ftp=; mysql=}
+settings        : @{config=; general=}
+quota           : @{block_usage=158792; block_softlimit=10485760; block_hardlimit=15728640; file_usage=412; file_softlimit=1200000; file_hardlimit=2000000}
+query           : @{server_name=Best DayZ Server; connect_ip=95.156.171.127:10800;
+                  map=dayzOffline.chernarusplus; version=v1.05.152699; player_current=27; player_max=50; players=System.Object[]}</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>(4401229 | Get-NitradoGameserver -Token $Token).settings.config.password
+
+p4Ssw0rD</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Gameserver - Gameserver Details</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Gameserver-Details</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoGameserverBackup</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoGameserverBackup</command:noun>
+      <maml:description>
+        <maml:para>Get gameserver backups.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get gameserver backups from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoGameserverBackup</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Gameserver Id</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Gameserver Id</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoGameserverBackup -Token $Token -Id 4311229
+
+database                          gameserver
+--------                          ----------
+@{ni1417868_2_DB=System.Object[]} @{dayzps=System.Object[]}</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>(Get-NitradoGameserverBackup -Token $Token -Id 4311229).gameserver.dayzps[0]
+
+backup_size      : 33355990
+backup_file_size : 33355990
+backup_timestamp : 1572586007
+backup_type      : master
+backup_number    : 35</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Gameserver - Gameserver Details</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Gameserver-BackupList</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoGameserverFile</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoGameserverFile</command:noun>
+      <maml:description>
+        <maml:para>Get gameserver files.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get gameserver files from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoGameserverFile</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>Dir</maml:name>
+          <maml:Description>
+            <maml:para>Directory to list, default value: Home directory</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Service Id</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>Search</maml:name>
+          <maml:Description>
+            <maml:para>Search pattern for specific files</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>Dir</maml:name>
+        <maml:Description>
+          <maml:para>Directory to list, default value: Home directory</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Service Id</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>Search</maml:name>
+        <maml:Description>
+          <maml:para>Search pattern for specific files</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoGameserverFile -Token $Token -Id 4556459 -Dir '/games/ni1445168_5/ftproot/' -Search '*log'
+
+chmod       : 100666
+accessed_at : 1572717345
+group       : ni1445168_5
+path        : /games/ni1445168_5/ftproot/restart.log
+type        : file
+owner       : ni1445168_5
+name        : restart.log
+size        : 5276
+created_at  : 1573117350
+modified_at : 1573117350</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Gameserver - Files - List</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Gameserver-GameserverFilesList</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoMaintenance</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoMaintenance</command:noun>
+      <maml:description>
+        <maml:para>Get Global - Maintenance status.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Global - Maintenance status from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoMaintenance</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoMaintenance -Token $Token
+
+cloud_backend domain_backend dns_backend pmacct_backend
+------------- -------------- ----------- --------------
+        False          False       False          False</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Global - Maintenance status</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Global-GetMaintenance</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoNTTime</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoNTTime</command:noun>
+      <maml:description>
+        <maml:para>Get NT Time.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get NT Time from Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoNTTime</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+          <maml:name>Time</maml:name>
+          <maml:Description>
+            <maml:para>{{ Fill Time Description }}</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none">
+        <maml:name>Time</maml:name>
+        <maml:Description>
+          <maml:para>{{ Fill Time Description }}</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoNTTime -Time '1572586007'</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoPing</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoPing</command:noun>
+      <maml:description>
+        <maml:para>Execute Global - Health Check.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Execute Global - Health Check for Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoPing</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoPing -Token $Token
+
+All systems operate as expected.</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Global - Health Check for API</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Global-DoPing</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoService</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoService</command:noun>
+      <maml:description>
+        <maml:para>Get service details.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get service details from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoService</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Service Id</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Service Id</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoService -Token $Token
+
+id                      : 4087452
+location_id             : 2
+status                  : active
+websocket_token         : 6dd8c6d0611a65c088a5229bd4f9e9f12b43592b
+user_id                 : 3027212
+comment                 :
+auto_extension          : False
+auto_extension_duration : 720
+type                    : gameserver
+type_human              : Publicserver 10 Slots
+details                 : @{address=5.62.108.113:2302; name=DayZ Server; game=DayZ (PS4);
+                          portlist_short=dayzps; folder_short=dayzps; slots=10}
+start_date              : 2019-08-07T13:12:11
+suspend_date            : 2019-10-05T12:38:42
+delete_date             : 2019-10-15T12:38:42
+suspending_in           : 81828
+deleting_in             : 945828
+username                : ni3027212_1
+roles                   : {ROLE_GAMESERVER_CHANGE_GAME, ROLE_WEBINTERFACE_GENERAL_CONTROL, ROLE_WEBINTERFACE_SETTINGS_READ,
+                          ROLE_WEBINTERFACE_SETTINGS_WRITE...}
+
+id                      : 4550639
+location_id             : 2
+status                  : active
+websocket_token         : 85061c5da8e76332971052fa26431aa94af7fe34
+user_id                 : 3027212
+comment                 :
+auto_extension          : False
+auto_extension_duration : 720
+type                    : gameserver
+type_human              : Publicserver 50 Slots
+details                 : @{address=194.168.219.177:7120; name=Gameserver ; game=Citadel: Forged With Fire (PS4); portlist_short=citadelps;
+                          folder_short=citadelps; slots=50}
+start_date              : 2019-10-02T18:40:15
+suspend_date            : 2020-02-31T18:07:15
+delete_date             : 2020-02-10T18:07:15
+suspending_in           : 7614680
+deleting_in             : 8478680
+username                : ni3027212_5
+roles                   : {ROLE_WEBINTERFACE_GENERAL_CONTROL, ROLE_WEBINTERFACE_SETTINGS_READ, ROLE_WEBINTERFACE_SETTINGS_WRITE,
+                          ROLE_WEBINTERFACE_LOGS_READ...}</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>4087452 | Get-NitradoService -Token $Token
+
+id                      : 4087452
+location_id             : 2
+status                  : active
+websocket_token         : 6dd8c6d0611a65c088a5229bd4f9e9f12b43592b
+user_id                 : 3027212
+comment                 :
+auto_extension          : False
+auto_extension_duration : 720
+type                    : gameserver
+type_human              : Publicserver 10 Slots
+details                 : @{address=5.62.108.113:2302; name=DayZ Server; game=DayZ (PS4);
+                          portlist_short=dayzps; folder_short=dayzps; slots=10}
+start_date              : 2019-08-07T13:12:11
+suspend_date            : 2019-10-05T12:38:42
+delete_date             : 2019-10-15T12:38:42
+suspending_in           : 81828
+deleting_in             : 945828
+username                : ni3027212_1
+roles                   : {ROLE_GAMESERVER_CHANGE_GAME, ROLE_WEBINTERFACE_GENERAL_CONTROL, ROLE_WEBINTERFACE_SETTINGS_READ,
+                          ROLE_WEBINTERFACE_SETTINGS_WRITE...}</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Service - Service List</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Service-List</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Service - Service Details</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-Service-Details</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoToken</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoToken</command:noun>
+      <maml:description>
+        <maml:para>Get Token from Secure String.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get Token from Secure String for use in the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoToken</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Path to the Token file</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Path to the Token file</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoToken -Path ('{0}/.nitradotoken' -f $Env:HOME)
+
+Ox7YqB_9X7DPbGssDE98w8v-VBz4KdyUMcZzwljZmPvIq_q648hmtt87Ry0WCwGNCdKnfsWBRwHNi4GMO32hHg2G9OVAlG0jpiF8</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NitradoUser</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NitradoUser</command:noun>
+      <maml:description>
+        <maml:para>Get user details.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get user details from the Nitrado API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NitradoUser</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Token</maml:name>
+          <maml:Description>
+            <maml:para>Token for the API call</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Token</maml:name>
+        <maml:Description>
+          <maml:para>Token for the API call</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>Keine</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-NitradoUser -Token $Token
+
+user_id     : 3027212
+username    : mmustermann
+activated   : True
+timezone    : Europe/Berlin
+email       : mmustermann@gmail.com
+credit      : 0
+currency    : EUR
+registered  : 2019-03-03T13:01:42
+language    : deu
+avatar      :
+donations   : True
+phone       : @{number=; country_code=; verified=False}
+two_factor  : {}
+profile     : @{name=; street=; postcode=; city=; country=DE; state=; country_and_state_verified=True}
+permissions : {CLOUDSERVER}
+employee    : False</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>User - User Details</maml:linkText>
+        <maml:uri>https://doc.nitrado.net/#api-User-Details</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>
