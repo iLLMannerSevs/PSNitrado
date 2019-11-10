@@ -72,6 +72,7 @@
   FunctionsToExport = @(
     'Export-NitradoToken'
     'Export-NitradoGameserverFile'
+    'Get-NitradoDayzPS4Event'
     'Get-NitradoGameserver'
     'Get-NitradoGameserverBackup'
     'Get-NitradoGameserverFile'
