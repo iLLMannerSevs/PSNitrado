@@ -56,4 +56,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-https://doc.nitrado.net/#api-Global-DoPing
+[Global - Health Check for API](https://doc.nitrado.net/#api-Global-DoPing)
