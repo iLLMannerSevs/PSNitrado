@@ -9,6 +9,8 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
+Get gameserver backups.
+
 ## SYNTAX
 
 ```
@@ -16,34 +18,34 @@ Get-NitradoGameserverBackup [-Token] <String> [-Id] <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get gameserver backups from the Nitrado API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### Example 1
 ```
-Get-NitradoMaintenance -Token $Token
+Get-NitradoGameserverBackup -Token $Token -Id 4311229
+
+database                          gameserver
+--------                          ----------
+@{ni1417868_2_DB=System.Object[]} @{dayzps=System.Object[]}
+```
+
+### Example 1
+```
+(Get-NitradoGameserverBackup -Token $Token -Id 4311229).gameserver.dayzps[0]
+
+backup_size      : 33355990
+backup_file_size : 33355990
+backup_timestamp : 1572586007
+backup_type      : master
+backup_number    : 35
 ```
 
 ## PARAMETERS
 
-### -Token
-{{ Fill Token Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Id
-{{ Fill Id Description }}
+Gameserver Id
 
 ```yaml
 Type: Int32
@@ -51,8 +53,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 1
 Default value: 0
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -Token
+Token for the API call
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -67,3 +84,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+https://doc.nitrado.net/#api-Gameserver-BackupList
