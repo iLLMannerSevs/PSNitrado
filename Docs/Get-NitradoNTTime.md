@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-NitradoNTTime
 
 ## SYNOPSIS
-Get NT Time from Nitrado Time
+Get NT Time.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-NitradoNTTime [-Time] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get NT Time from Nitrado Time
+Get NT Time from Nitrado API.
 
 ## EXAMPLES
 
