@@ -31,7 +31,7 @@ database                          gameserver
 @{ni1417868_2_DB=System.Object[]} @{dayzps=System.Object[]}
 ```
 
-### Example 1
+### Example 2
 ```
 (Get-NitradoGameserverBackup -Token $Token -Id 4311229).gameserver.dayzps[0]
 
