@@ -1,18 +1,5 @@
 function Export-NitradoGameserverFile
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoMaintenance -Token $Token
-  #>
-
   [CmdletBinding()]
   Param
   (
@@ -24,7 +11,7 @@ function Export-NitradoGameserverFile
     [int]
     $Id,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
     [string]
     $File,
 
@@ -59,7 +46,7 @@ function Export-NitradoGameserverFile
     }
     catch
     {
-      throw $PSItem.Exception
+      Write-Error $PSItem.Exception
     }
     $Result |
     Add-Member -MemberType NoteProperty -Name 'location' -Value ('{0}{1}' -f $Path, $FileName) -PassThru

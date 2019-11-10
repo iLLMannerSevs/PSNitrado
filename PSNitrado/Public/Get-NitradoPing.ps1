@@ -1,18 +1,5 @@
 function Get-NitradoPing
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoPing -Token $Token
-  #>
-
   [CmdletBinding()]
   Param
   (

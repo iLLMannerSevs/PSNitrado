@@ -1,18 +1,5 @@
 function Get-NitradoGameserverFile
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Param1
-
-    .PARAMETER Param2
-
-    .EXAMPLE
-    Get-NitradoMaintenance -Token $Token
-  #>
-
   [CmdletBinding(DefaultParameterSetName = 'All')]
   Param
   (
@@ -20,7 +7,7 @@ function Get-NitradoGameserverFile
     [string]
     $Token,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
     [int]
     $Id,
 

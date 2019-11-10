@@ -1,35 +1,20 @@
 function Get-NitradoFunctionString
 {
   <#
-  .EXAMPLE
-  $Params = [ordered]@{
-    Query = 'some+message'
-    Limit = '10'
-    Expand = $true
-    Page   = 1
-    Per_page = 3
-  }
-  Get-ZammadFunctionString @Params
+  .SYNOPSIS
+  Construct parameter string for Nitrado API call.
+
+  .DESCRIPTION
+  Construct parameter string for Nitrado API call.
 
   .EXAMPLE
-  $Params = [ordered]@{
-    Query = "Heiland"
-    Limit = 1
-    Expand = $true
-    Page   = 1
-    Per_page = 1
-  }
-  Get-ZammadFunctionString @Params
+  Get-NitradoFunctionString -Search "*.ADM"
 
-  Get-ZammadFunctionString -Query "Heiland"
+  .EXAMPLE
+  Get-NitradoFunctionString -Dir "/games/ni1529538_1/noftp/dayzps/config/"
 
-
-  /search?query=some+message&limit=10&expand=true'
-  /search?query=state:new%20OR%20state:open&limit=10&expand=true'
-  /search?query=smith&limit=10&expand=true'
-  ?expand=true&page=1&per_page=5 HTTP/1.1
-
-  ?dir=/games/ni1429468_1/noftp/dayzps/config/&search=*.ADM
+  .EXAMPLE
+  Get-NitradoFunctionString -Dir "/games/ni1529538_1/noftp/dayzps/config/" -Search "*.ADM"
   #>
 
   [CmdletBinding()]

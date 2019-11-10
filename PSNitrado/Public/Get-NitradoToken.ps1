@@ -1,16 +1,5 @@
 function Get-NitradoToken
 {
-  <#
-    .SYNOPSIS
-
-    .DESCRIPTION
-
-    .PARAMETER Path
-
-    .EXAMPLE
-    Get-NitradoToken -Path ('{0}/.nitradotoken' -f $Env:HOME)
-  #>
-
   [OutputType('System.String')]
   [CmdletBinding()]
   Param
