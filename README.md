@@ -5,37 +5,37 @@ PowerShell Module for Nitrado API https://doc.nitrado.net/
 
 ## PSNitrado Cmdlets
 ### [Export-NitradoGameserverFile](Docs/Export-NitradoGameserverFile.md)
-{{ Fill in the Description }}
+Download gameserver file.
 
 ### [Export-NitradoToken](Docs/Export-NitradoToken.md)
-{{ Fill in the Description }}
+Export Token to Secure String to file.
 
 ### [Get-NitradoGameserver](Docs/Get-NitradoGameserver.md)
-{{ Fill in the Description }}
+Get gameserver.
 
 ### [Get-NitradoGameserverBackup](Docs/Get-NitradoGameserverBackup.md)
-{{ Fill in the Description }}
+Get gameserver backups.
 
 ### [Get-NitradoGameserverFile](Docs/Get-NitradoGameserverFile.md)
-{{ Fill in the Description }}
+Get gameserver files.
 
 ### [Get-NitradoMaintenance](Docs/Get-NitradoMaintenance.md)
-{{ Fill in the Description }}
+Get Global - Maintenance status.
 
 ### [Get-NitradoNTTime](Docs/Get-NitradoNTTime.md)
-{{ Fill in the Description }}
+Get NT Time.
 
 ### [Get-NitradoPing](Docs/Get-NitradoPing.md)
-{{ Fill in the Description }}
+Execute Global - Health Check.
 
 ### [Get-NitradoService](Docs/Get-NitradoService.md)
-{{ Fill in the Description }}
+Get service details.
 
 ### [Get-NitradoToken](Docs/Get-NitradoToken.md)
-{{ Fill in the Description }}
+Get Token from Secure String.
 
 ### [Get-NitradoUser](Docs/Get-NitradoUser.md)
-{{ Fill in the Description }}
+Get user details.
 
 
 
