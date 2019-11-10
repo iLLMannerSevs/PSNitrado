@@ -74,4 +74,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-https://doc.nitrado.net/#api-User-Details
+[User - User Details](https://doc.nitrado.net/#api-User-Details)

@@ -144,6 +144,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-https://doc.nitrado.net/#api-Service-List
+[Service - Service List](https://doc.nitrado.net/#api-Service-List)
 
-https://doc.nitrado.net/#api-Service-Details
+[Service - Service Details](https://doc.nitrado.net/#api-Service-Details)

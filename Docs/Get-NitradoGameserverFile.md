@@ -116,5 +116,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-
-https://doc.nitrado.net/#api-Gameserver-GameserverFilesList
+[Gameserver - Files - List](https://doc.nitrado.net/#api-Gameserver-GameserverFilesList)

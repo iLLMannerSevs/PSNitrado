@@ -133,5 +133,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-
-https://doc.nitrado.net/#api-Gameserver-GameserverFilesDownload
+[Gameserver - Files - Download](https://doc.nitrado.net/#api-Gameserver-GameserverFilesDownload)
