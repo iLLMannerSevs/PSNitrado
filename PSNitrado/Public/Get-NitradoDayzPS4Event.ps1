@@ -19,26 +19,29 @@ function Get-NitradoDayzPS4Event
   begin
   {
     $PatternKeyColl = @(
-      'Hour'
-      'Minute'
-      'Second'
+      'Date'
+      #'Year'
+      #'Month'
+      #'Day'
+      'Time'
+      #'Hour'
+      #'Minute'
+      #'Second'
       'PlayerName'
       'PlayerId'
       'PosX'
       'PosY'
       'PosZ'
-      'HP'
-      'HitWith'
-      'KilledBy'
-      'ByPlayerName'
-      'ByPlayerId'
       'ByPosX'
       'ByPosY'
       'ByPosZ'
+      'HP'
       'Into'
+      'ByX'
       'Damage'
-      'HitWith'
-      'HitBy'
+      'With'
+      'ByPlayerName'
+      'ByPlayerId'
       'Disconnected'
       'Water'
       'Energy'
@@ -47,41 +50,83 @@ function Get-NitradoDayzPS4Event
       'Bledout'
     )
 
-    $PatternColl = @{
-      LogBegin           = 'AdminLog\sstarted\son\s(?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+at\s+(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s*$'
-      Connected          = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+is\s+(?<Connected>connected)\s+\(id=(?<PlayerId>[\w|\-]+)=\)\s*$'
-      Disconnected       = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\(id=(?<PlayerId>[\w|\-]+)=\)\s+has\s+been\s+(?<Disconnected>disconnected)\s*$'
-      Conscious          = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\sregained\sconsciousness\s*$'
-      Unconscious        = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+is\s+unconscious\s*$'
-      HitByPlayer        = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sPlayer\s"(?<ByPlayerName>.+)"\s\(id=(?<ByPlayerId>.+)=\s+pos=<(?<ByPosX>.+),\s(?<ByPosY>.+),\s(?<ByPosZ>.+)>\)\s+into\s(?<Into>.+)\s+for\s(?<Damage>.+)\s+damage\s+(?<HitWith>.+)\s*$'
-      HitByWolf          = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>Wolf)\s+into\s+(?<Into>.+)\s+for\s+(?<Damage>.+)\s+damage\s+\((?<HitWith>.+)\)\s*$'
-      HitByFallDamage    = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w | \-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>FallDamage)\s*$'
-      HitByFireplace     = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sFireplace\swith\s(?<HitWith>.+)\s*$'
-      HitByFence         = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sFence\swith\s(?<HitWith>.+)\s*$'
-      HitByWatchtower    = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sWatchtower\swith\s(?<HitWith>.+)\s*$'
-      HitByFireplaceDead = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(DEAD\)\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sFireplace\swith\s(?<HitWith>.+)\s*$'
-      HitByTransport     = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\s(?<Car>.+)\swith\s(?<HitWith>TransportHit)\s*$'
-      HitByFenceDead     = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sFence\swith\s(?<HitWith>.+)\s*$'
-      HitByPlayerDead    = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s(?<HP>.+)\]\shit\sby\sPlayer\s"(?<ByPlayerName>.+)"\s\(id=(?<ByPlayerId>.+)=\s+pos=<(?<ByPosX>.+),\s(?<ByPosY>.+),\s(?<ByPosZ>.+)>\)\s+into\s(?<Into>.+)\s+for\s(?<Damage>.+)\s+damage\s+(?<HitWith>.+)\s*$'
-      HitByPlayerBlock   = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+Player\s\"(?<ByPlayerName>.+)\"\s\(id=(?<ByPlayerId>.+)=\spos=<(?<ByPosX>.+),\s(?<ByPosY>.+),\s(?<ByPosZ>.+)>\)\s+into\s(?<Into>.+)\sdamage\s*$'
-      HitByExplosion     = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w | \-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>explosion)\s\((?<HitWith>.*)\)\s*$'
-      HitByInfected      = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>Infected)\s+into\s+(?<Into>.+)\s+for\s+(?<Damage>.+)\s+damage\s+\((?<HitWith>.+)\)\s*$'
-      HitByInfectedDead  = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>Infected)\s+into\s+(?<Into>.+)\s+for\s+(?<Damage>.+)\s+damage\s+\((?<HitWith>.+)\)\s*$'
-      HitByInfectedBlock = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\[HP:\s+(?<HP>.+)\]\s+hit\s+by\s+(?<HitBy>Infected)\s+into\s+(?<Into>.+)\s+for\s+(?<Damage>.+)\s+damage\s*$'
-      KilledByFenceDead  = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+killed\s+by\s+with\s+(?<KilledBy>.+)\s*$'
-      KilledByDead       = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+killed\s+by\s(?<KilledBy>.+)\s*$'
-      Died               = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+died\.\s+Stats\>\s+Water:\s+(?<Water>.+)\s+Energy:\s+(?<Energy>.+)\s+Bleed\s+sources:\s+(?<BleedSources>.+)\s*$'
-      Suicide1           = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+committed\s+(?<Suicide>suicide)\s*$'
-      Suicide2           = "^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s'(?<PlayerName>.+)'\s+\(id=(?<PlayerId>[\w|\-]+)=\)\s+committed\s+(?<Suicide>suicide)\.\s*$"
-      BledOut            = '^(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})\s+\|\sPlayer\s"(?<PlayerName>.+)"\s+\(DEAD\)\s+\(id=(?<PlayerId>[\w|\-]+)=\s+pos=<(?<PosX>.+),\s(?<PosY>.+),\s(?<PosZ>.+)>\)\s+(?<Bledout>bled\sout)\s*$'
-      LogEnd             = '^\**EOF\**$'
+    #$RxDate = '(?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})'
+    $RxDate = '(?<Date>\d{4}-\d{2}-\d{2})'
+    #$RxTime = '(?<Hour>\d{2}):(?<Minute>\d{2}):(?<Second>\d{2})'
+    $RxTime = '(?<Time>\d{2}:\d{2}:\d{2})'
+    $RxDiv01 = '\|'
+    $RxPlayer = "Player\s*[`"|`'](?<PlayerName>.+)[`"|`']"
+    $RxByPlayer = "Player\s*[`"|`'](?<ByPlayerName>.+)[`"|`']"
+    $RxBrOp = '\('
+    $RxBrCl = '\)'
+    $RxPlayerId = 'id=(?<PlayerId>[\w|\-]+)='
+    $RxByPlayerId = 'id=(?<ByPlayerId>[\w|\-]+)='
+    $RxDead = 'DEAD'
+    $RxPos = 'pos=<(?<PosX>.+),\s*(?<PosY>.+),\s*(?<PosZ>.+)>'
+    $RxByPos = 'pos=<(?<ByPosX>.+),\s*(?<ByPosY>.+),\s*(?<ByPosZ>.+)>'
+    $RxHp = '\[HP:\s*(?<HP>.+)\]'
+    $RxInto = '(?<Into>.+)'
+    $RxByX = '(?<ByX>.+)'
+    $RxDamage = '(?<Damage>[\d|\.]+)'
+    $RxWith = '(?<With>.+)'
+
+    $PatternColl = [ordered]@{
+      LogBegin            = ('AdminLog\s*started\s*on\s*{1}\s*at\s*{0}$' -f $RxTime, $RxDate)
+      Connected           = ('^{0}\s*{1}\s*{2}\s*is\s*(?<Connected>connected)\s*{3}{5}{4}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId)
+      Disconnected        = ('^{0}\s*{1}\s*{2}\s*{3}{5}{4}\s*has\s*been\s*(?<Disconnected>disconnected)$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId)
+      Suicide2            = ('^{0}\s*{1}\s*{2}\s*{3}{5}{4}\s*committed\s*(?<Suicide>suicide)\.$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId)
+      Conscious           = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}\s*regained\s*consciousness$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos)
+      Unconscious         = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}\s*is\s*unconscious$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos)
+      Suicide1            = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}\s*committed\s*(?<Suicide>suicide)$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos)
+      HitByXDeadIntoWith  = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}{8}\s*hit\s*by\s*{10}\s*into\s*{9}\s*for\s*{11}\s*damage\s*{12}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxHp, $RxInto, $RxByX, $RxDamage, $RxWith)
+      HitByPlayerWithDead = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}{8}\s*hit\s*by\s*{9}\s*{3}{10}\s*{11}{4}\s*into\s*{12}\s*for\s*{13}\s*damage\s*{14}$' -f
+        $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxHp, $RxByPlayer, $RxByPlayerId, $RxByPos, $RxInto, $RxDamage, $RxWith)
+      HitByXDeadWith      = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}{8}\s*hit\s*by\s*{9}\s*with\s*{10}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxHp, $RxByX, $RxWith)
+      HitByPlayerIntoWith = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{8}\s*{3}{9}\s*{10}{4}\s+into\s*{11}\s*for\s*{12}\s*damage\s*{13}\s*$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxByPlayer, $RxByPlayerId, $RxByPos, $RxInto, $RxDamage, $RxWith)
+      HitByPlayerInto     = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{8}\s*{3}{9}\s*{10}{4}\s*into\s*{11}\s*for\s*{12}\s*damage.*$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxByPlayer, $RxByPlayerId, $RxByPos, $RxInto, $RxDamage)
+      HitByXIntoWith      = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{9}\s*into\s*{8}\s*for\s*{10}\s*damage\s*{11}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxInto, $RxByX, $RxDamage, $RxWith)
+      HitByXInto          = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{9}\s*into\s*{8}\s*for\s*{10}\s*damage$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxInto, $RxByX, $RxDamage)
+      HitByXWith          = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{8}\s*with\s*{9}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxByX, $RxWith)
+      HitByX              = ('^{0}\s*{1}\s*{2}\s*{3}{5}\s*{6}{4}{7}\s*hit\s*by\s*{8}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxPos, $RxHp, $RxByX)
+      KilledByXWithDead   = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}\s*killed\s*by\s*with\s*{8}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxByX)
+      KilledByXDead       = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}\s*killed\s*by\s*{8}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxByX)
+      KilledByPlayerDead  = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}\s*killed\s*by\s*{10}\s*{3}{8}\s*{9}{4}\s*with\s*{11}$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos, $RxByPlayerId, $RxByPos, $RxByPlayer, $RxWith)
+      Died                = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}\s*died\.\s*Stats\>\s*Water:\s*(?<Water>.+)\s*Energy:\s*(?<Energy>.+)\s*Bleed\s*sources:\s*(?<BleedSources>.+)$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos)
+      BledOut             = ('^{0}\s*{1}\s*{2}\s*{3}{6}{4}\s*{3}{5}\s*{7}{4}\s*(?<Bledout>bled\s*out)$' -f $RxTime, $RxDiv01, $RxPlayer, $RxBrOp, $RxBrCl, $RxPlayerId, $RxDead, $RxPos)
+      LogEnd              = '^\**EOF\**$'
     }
   }
+  <#
   process
   {
     $Result = foreach ($InputString in (Get-Content -Path $Path))
     {
-      foreach ($String in $InputString | Where-Object { $_ })
+      foreach ($String in $InputString.trim() | Where-Object { $_ })
+      {
+        $x = 0
+        foreach ($Pattern in $PatternColl.GetEnumerator())
+        {
+          if ($String -match $Pattern.Value)
+          {
+            $x = 1
+            '--------------'
+            $Pattern.Name
+            $String
+            $Pattern.Value
+            '++++++++++++++'
+            break
+          }
+        }
+      }
+    }
+    $Result
+    #>
+  #<#
+  process
+  {
+    $Result = foreach ($InputString in (Get-Content -Path $Path))
+    {
+      foreach ($String in $InputString.trim() | Where-Object { $_ })
       {
         $x = 0
         foreach ($Pattern in $PatternColl.GetEnumerator())
@@ -94,7 +139,7 @@ function Get-NitradoDayzPS4Event
               $Properties = $PropertyNames |
               ForEach-Object -Begin { $t = @{ } } -Process { $t[$_] = $Matches[$_] } -End { $t }
               $Properties.Add('Type', $Pattern.Name)
-              $Properties.Add('Time', ( (Get-Date -Hour $Properties.Hour -Minute $Properties.Minute -Second $Properties.Second -Format 'HH:mm:ss') ))
+              #$Properties.Add('Time', ( (Get-Date -Hour $Properties.Hour -Minute $Properties.Minute -Second $Properties.Second -Format 'HH:mm:ss') ))
               foreach ($PatternKey in $PatternKeyColl)
               {
                 if ($PatternKey -notin $Properties.GetEnumerator().Name)
@@ -107,13 +152,10 @@ function Get-NitradoDayzPS4Event
             break
           }
         }
-        if ($x -eq 0)
-        {
-          Write-Host ('{0}' -f $String)
-        }
       }
     }
-    #$Result
+    $Result
+    #>
   }
   end
   {
