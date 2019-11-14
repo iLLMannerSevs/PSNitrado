@@ -41,17 +41,17 @@ function Get-NitradoDayzPS4Event
       Time         = '(?<Time>\d{2}:\d{2}:\d{2})'
       PlayerName   = "Player\s*[\`"|\`'](?<PlayerName>.[^\`"|^\`']*)\W+"
       PlayerId     = 'id=(?<PlayerId>[\w|\-]+)='
-      Pos          = 'pos=<(?<Pos>[\d|\.]+,\s*[\d|\.]+,\s*[\d|\.]+)>'
-      Hp           = '\[HP:\s*(?<HP>[\d|\.]+)\]'
+      Pos          = 'pos=<(?<Pos>[\d|\.|-]+,\s*[\d|\.|-]+,\s*[\d|\.|-]+)>'
+      Hp           = '\[HP:\s*(?<HP>[\d|\.|-]+)\]'
       Into         = '(?<Into>.+)'
       ByX          = '(?<ByX>.+)'
-      Damage       = '(?<Damage>[\d|\.]+)'
+      Damage       = '(?<Damage>[\d|\.|-]+)'
       With         = '(?<With>.+)'
       ByPlayerName = "Player\s*[\`"|\`'](?<ByPlayerName>.[^\`'|^\`"]*)\W+"
       ByPlayerId   = 'id=(?<ByPlayerId>[\w|\-]+)='
-      ByPos        = 'pos=<(?<ByPos>[\d|\.]+,\s*[\d|\.]+,\s*[\d|\.]+)>'
-      Water        = '(?<Water>[\d|\.]+)'
-      Energy       = '(?<Energy>[\d|\.]+)'
+      ByPos        = 'pos=<(?<ByPos>[\d|\.|-]+,\s*[\d|\.|-]+,\s*[\d|\.|-]+)>'
+      Water        = '(?<Water>[\d|\.|-]+)'
+      Energy       = '(?<Energy>[\d|\.|-]+)'
       BleedSources = '(?<BleedSources>\d+)'
     }
 
@@ -101,9 +101,11 @@ function Get-NitradoDayzPS4Event
       LogEnd                  = '^\**EOF\**$'
     }
   }
+
   <#
   process
   {
+    Write-Host '##############################################################'
     $Result = foreach ($InputString in (Get-Content -Path $Path))
     {
       foreach ($String in $InputString.trim() | Where-Object { $_ })
@@ -114,18 +116,26 @@ function Get-NitradoDayzPS4Event
           if ($String -match $Pattern.Value)
           {
             $x = 1
-            '--------------'
-            $Pattern.Name
-            $String
-            $Pattern.Value
-            '++++++++++++++'
+            #Write-Host '--------------'
+            #Write-Host $Pattern.Name
+            #Write-Host $String
+            #Write-Host $Pattern.Value
+            #Write-Host '++++++++++++++'
             break
           }
         }
+        if ($x -eq 0)
+        {
+          Write-Host '--------------'
+          Write-Host $String
+          Write-Host '++++++++++++++'
+        }
       }
     }
-    $Result
-    #>
+    #$Result
+  }
+  #>
+  #<#
   process
   {
     $Result = foreach ($InputString in (Get-Content -Path $Path))
@@ -157,6 +167,7 @@ function Get-NitradoDayzPS4Event
     }
     $Result
   }
+  #>
   end
   {
   }
