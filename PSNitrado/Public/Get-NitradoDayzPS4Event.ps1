@@ -142,11 +142,11 @@ function Get-NitradoDayzPS4Event
                 {
                   $t[$_] = [Double]$Matches[$_]
                 }
-                if (@("$_") -match '(Pos|ByPos)')
+                elseif (@("$_") -match '(Pos|ByPos)')
                 {
                   $t[$_] = $Matches[$_] -replace (',', ';') -replace (' ', '')
                 }
-                if (@("$_") -match '(BleedSources)')
+                elseif (@("$_") -match '(BleedSources)')
                 {
                   $t[$_] = [Int]$Matches[$_]
                 }
