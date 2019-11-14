@@ -18,28 +18,9 @@ function Get-NitradoDayzPS4Event
 
   begin
   {
-    $PatternKeyColl = @(
-      #'Date'
-      'Time'
-      'PlayerName'
-      'PlayerId'
-      'Pos'
-      'HP'
-      'Into'
-      'ByX'
-      'Damage'
-      'With'
-      'ByPlayerName'
-      'ByPlayerId'
-      'ByPos'
-      'Water'
-      'Energy'
-      'BleedSources'
-    )
-      
+
     $RxLogBegin = ('AdminLog\s*started\s*on\s*(?<Date>\d{4}-\d{2}-\d{2})\s*at\s*\d{2}:\d{2}:\d{2}$')
     $Rx = [ordered]@{
-      #Date         = '(?<Date>\d{4}-\d{2}-\d{2})'
       Time         = '(?<Time>\d{2}:\d{2}:\d{2})'
       PlayerName   = "Player\s*[\`"|\`'](?<PlayerName>.[^\`"|^\`']*)\W+"
       PlayerId     = 'id=(?<PlayerId>[\w|\-]+)='
@@ -56,10 +37,8 @@ function Get-NitradoDayzPS4Event
       Energy       = '(?<Energy>[\d|\.|-]+)'
       BleedSources = '(?<BleedSources>\d+)'
     }
-    
+
     $PatternColl = [ordered]@{
-      #LogBegin                = ('AdminLog\s*started\s*on\s*{1}\s*at\s*{0}$' -f
-      #$Rx.Time, $Rx.Date)
       Connected               = ('^{0}\s*\|\s*{1}\s*is\s*connected\s*\({2}\)$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId)
       Disconnected            = ('^{0}\s*\|\s*{1}\s*\({2}\)\s*has\s*been\s*disconnected$' -f
@@ -103,7 +82,6 @@ function Get-NitradoDayzPS4Event
       LogEnd                  = '^\**EOF\**$'
     }
   }
-    
   <#
     process
     {
@@ -144,12 +122,10 @@ function Get-NitradoDayzPS4Event
     $TimeString = '00:00:00'
     $Result = foreach ($InputString in (Get-Content -Path $Path))
     {
-      #$TimeString = [System.Convert]::ToDateTime('00:00:00')
       foreach ($String in $InputString.trim() | Where-Object { $_ })
       {
         if ($String -match $RxLogBegin)
         {
-          #$DateString = [System.Convert]::ToDateTime($Matches.Date)
           $DateString = $Matches.Date
         }
         foreach ($Pattern in $PatternColl.GetEnumerator())
@@ -159,11 +135,31 @@ function Get-NitradoDayzPS4Event
             if ($PropertyNames = $Matches.Keys | Where-Object { $_ -is [string] })
             {
               $Properties = $PropertyNames |
-              ForEach-Object -Begin { $t = @{ } } -Process { $t[$_] = $Matches[$_] } -End { $t }
+              ForEach-Object -Begin {
+                $t = @{ }
+              } -Process {
+                if (@("$_") -match '(Hp|Damage|Water|Energy)')
+                {
+                  $t[$_] = [Double]$Matches[$_]
+                }
+                if (@("$_") -match '(Pos|ByPos)')
+                {
+                  $t[$_] = $Matches[$_] -replace (',', ';') -replace (' ', '')
+                }
+                if (@("$_") -match '(BleedSources)')
+                {
+                  $t[$_] = [Int]$Matches[$_]
+                }
+                else
+                {
+                  $t[$_] = $Matches[$_]
+                }
+              } -End {
+                $t
+              }
               $Properties.Add('Type', $Pattern.Name)
               if ([System.Convert]::ToDateTime($Properties.Time).Hour -ge [System.Convert]::ToDateTime($TimeString).Hour)
               {
-                #Write-Host "ffff"
                 $DateTimeSTring = ('{0}T{1}' -f $DateString, $Properties.Time)
                 $DateTime = [System.Convert]::ToDateTime($DateTimeSTring)
                 $Properties.Add('DateTime', $DateTime)
@@ -174,17 +170,13 @@ function Get-NitradoDayzPS4Event
                 $DateTime = [System.Convert]::ToDateTime($DateTimeSTring).AddDays(1)
                 $Properties.Add('DateTime', $DateTime)
               }
-              #Write-Host "olddate: $DateString"
               $DateString = $DateTime.ToString('yyyy-MM-dd')
-              #Write-Host "newdate: $DateString"
-              #Write-Host "oldtime: $TimeString"
               $TimeString = $DateTime.ToString('HH:mm:ss')
-              #Write-Host "newtime: $TimeString"
-              foreach ($PatternKey in $PatternKeyColl)
+              foreach ($RxKey in $Rx.Keys)
               {
-                if ($PatternKey -notin $Properties.GetEnumerator().Name)
+                if ($RxKey -notin $Properties.GetEnumerator().Name)
                 {
-                  $Properties.Add($PatternKey, '')
+                  $Properties.Add($RxKey, '')
                 }
               }
               [PSCustomObject]$Properties
