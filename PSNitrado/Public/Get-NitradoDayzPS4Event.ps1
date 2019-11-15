@@ -1,7 +1,7 @@
 function Get-NitradoDayzPS4Event
 {
   [OutputType('System.String')]
-  [CmdletBinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   Param
   (
     [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
@@ -13,12 +13,15 @@ function Get-NitradoDayzPS4Event
         return $true
       })]
     [System.IO.FileInfo]
-    $Path
+    $Path,
+
+    [Parameter(ParameterSetName = 'PatternMatchTest')]
+    [Switch]
+    $PatternMatchTest
   )
 
   begin
   {
-
     $RxLogBegin = ('AdminLog\s*started\s*on\s*(?<Date>\d{4}-\d{2}-\d{2})\s*at\s*\d{2}:\d{2}:\d{2}$')
     $Rx = [ordered]@{
       Time         = '(?<Time>\d{2}:\d{2}:\d{2})'
@@ -86,109 +89,111 @@ function Get-NitradoDayzPS4Event
       LogEnd                  = '^\**EOF\**$'
     }
   }
-  <#
-    process
-    {
-      Write-Host '##############################################################'
-      $Result = foreach ($InputString in (Get-Content -Path $Path))
-      {
-        foreach ($String in $InputString.trim() | Where-Object { $_ })
-      {
-        $x = 0
-        foreach ($Pattern in $PatternColl.GetEnumerator())
-        {
-          if ($String -match $Pattern.Value)
-          {
-            $x = 1
-            #Write-Host '--------------'
-            #Write-Host $Pattern.Name
-            #Write-Host $String
-            #Write-Host $Pattern.Value
-            #Write-Host '++++++++++++++'
-            break
-          }
-        }
-        if ($x -eq 0)
-        {
-          Write-Host '--------------'
-          Write-Host $String
-          Write-Host '++++++++++++++'
-        }
-      }
-    }
-    #$Result
-  }
-  #>
-  #<#
+
   process
   {
-    $DateString = '2000-01-01'
-    $TimeString = '00:00:00'
-    $Result = foreach ($InputString in (Get-Content -Path $Path))
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      foreach ($String in $InputString.trim() | Where-Object { $_ })
+      'PatternMatchTest'
       {
-        if ($String -match $RxLogBegin)
+        $Result = foreach ($InputString in (Get-Content -Path $Path))
         {
-          $DateString = $Matches.Date
-        }
-        foreach ($Pattern in $PatternColl.GetEnumerator())
-        {
-          if ($String -match $Pattern.Value)
+          foreach ($String in $InputString.trim() | Where-Object { $_ })
           {
-            if ($PropertyNames = $Matches.Keys | Where-Object { $_ -is [string] })
+            if ($String -match $RxLogBegin)
             {
-              $Properties = $PropertyNames |
-              ForEach-Object -Begin {
-                $t = @{ }
-              } -Process {
-                if (@("$_") -match '(Hp|Damage|Water|Energy|Pos)')
-                {
-                  $t[$_] = [Double]$Matches[$_]
-                }
-                elseif (@("$_") -match '(BleedSources)')
-                {
-                  $t[$_] = [Int]$Matches[$_]
-                }
-                else
-                {
-                  $t[$_] = $Matches[$_]
-                }
-              } -End {
-                $t
-              }
-              $Properties.Add('Type', $Pattern.Name)
-              if ([System.Convert]::ToDateTime($Properties.Time).Hour -ge [System.Convert]::ToDateTime($TimeString).Hour)
-              {
-                $DateTimeSTring = ('{0}T{1}' -f $DateString, $Properties.Time)
-                $DateTime = [System.Convert]::ToDateTime($DateTimeSTring)
-                $Properties.Add('DateTime', $DateTime)
-              }
-              else
-              {
-                $DateTimeSTring = ('{0}T{1}' -f $DateString, $Properties.Time)
-                $DateTime = [System.Convert]::ToDateTime($DateTimeSTring).AddDays(1)
-                $Properties.Add('DateTime', $DateTime)
-              }
-              $DateString = $DateTime.ToString('yyyy-MM-dd')
-              $TimeString = $DateTime.ToString('HH:mm:ss')
-              foreach ($RxKey in $Rx.Keys)
-              {
-                if ($RxKey -notin $Properties.GetEnumerator().Name)
-                {
-                  $Properties.Add($RxKey, '')
-                }
-              }
-              [PSCustomObject]$Properties
+              break
             }
-            break
+            $x = 0
+            foreach ($Pattern in $PatternColl.GetEnumerator())
+            {
+              if ($String -match $Pattern.Value)
+              {
+                $x = 1
+                break
+              }
+            }
+            if ($x -eq 0)
+            {
+              [pscustomobject]@{
+                String = $String
+              }
+            }
           }
         }
+        $Result
+      }
+      'All'
+      {
+        $DateString = '2000-01-01'
+        $TimeString = '00:00:00'
+        $Result = foreach ($InputString in (Get-Content -Path $Path))
+        {
+          foreach ($String in $InputString.trim() | Where-Object { $_ })
+          {
+            if ($String -match $RxLogBegin)
+            {
+              $DateString = $Matches.Date
+            }
+            foreach ($Pattern in $PatternColl.GetEnumerator())
+            {
+              if ($String -match $Pattern.Value)
+              {
+                if ($PropertyNames = $Matches.Keys | Where-Object { $_ -is [string] })
+                {
+                  $Properties = $PropertyNames |
+                  ForEach-Object -Begin {
+                    $t = @{ }
+                  } -Process {
+                    if (@("$_") -match '(Hp|Damage|Water|Energy|Pos)')
+                    {
+                      $t[$_] = [Double]$Matches[$_]
+                    }
+                    elseif (@("$_") -match '(BleedSources)')
+                    {
+                      $t[$_] = [Int]$Matches[$_]
+                    }
+                    else
+                    {
+                      $t[$_] = $Matches[$_]
+                    }
+                  } -End {
+                    $t
+                  }
+                  $Properties.Add('Type', $Pattern.Name)
+                  if ([System.Convert]::ToDateTime($Properties.Time).Hour -ge [System.Convert]::ToDateTime($TimeString).Hour)
+                  {
+                    $DateTimeSTring = ('{0}T{1}' -f $DateString, $Properties.Time)
+                    $DateTime = [System.Convert]::ToDateTime($DateTimeSTring)
+                    $Properties.Add('DateTime', $DateTime)
+                  }
+                  else
+                  {
+                    $DateTimeSTring = ('{0}T{1}' -f $DateString, $Properties.Time)
+                    $DateTime = [System.Convert]::ToDateTime($DateTimeSTring).AddDays(1)
+                    $Properties.Add('DateTime', $DateTime)
+                  }
+                  $DateString = $DateTime.ToString('yyyy-MM-dd')
+                  $TimeString = $DateTime.ToString('HH:mm:ss')
+                  foreach ($RxKey in $Rx.Keys)
+                  {
+                    if ($RxKey -notin $Properties.GetEnumerator().Name)
+                    {
+                      $Properties.Add($RxKey, '')
+                    }
+                  }
+                  [PSCustomObject]$Properties
+                }
+                break
+              }
+            }
+          }
+        }
+        $Result
       }
     }
-    $Result
   }
-  #>
+
   end
   {
   }
