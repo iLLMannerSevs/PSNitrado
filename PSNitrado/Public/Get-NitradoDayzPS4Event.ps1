@@ -26,7 +26,7 @@ function Get-NitradoDayzPS4Event
     $Rx = [ordered]@{
       Time         = '(?<Time>\d{2}:\d{2}:\d{2})'
       PlayerName   = "Player\s*[\`"|\`'](?<PlayerName>.[^\`"|^\`']*)\W+"
-      PlayerId     = 'id=(?<PlayerId>[\w|\-]+)='
+      PlayerId     = 'id=(?<PlayerId>[\w|\-]+)=*'
       PosX         = 'pos=<(?<PosX>[\d|\.|-]+),'
       PosY         = '(?<PosY>[\d|\.|-]+),'
       PosZ         = '(?<PosZ>[\d|\.|-]+)>'
@@ -36,7 +36,7 @@ function Get-NitradoDayzPS4Event
       Damage       = '(?<Damage>[\d|\.|-]+)'
       With         = '(?<With>.+)'
       ByPlayerName = "Player\s*[\`"|\`'](?<ByPlayerName>.[^\`'|^\`"]*)\W+"
-      ByPlayerId   = 'id=(?<ByPlayerId>[\w|\-]+)='
+      ByPlayerId   = 'id=(?<ByPlayerId>[\w|\-]+)=*'
       ByPosX       = 'pos=<(?<ByPosX>[\d|\.|-]+),'
       ByPosY       = '(?<ByPosY>[\d|\.|-]+),'
       ByPosZ       = '(?<ByPosZ>[\d|\.|-]+)>'
@@ -55,6 +55,8 @@ function Get-NitradoDayzPS4Event
       Conscious               = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*regained\s*consciousness$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
       Unconscious             = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
+        $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
+      UnconsciousDead         = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
       Suicide1                = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*committed\s*suicide$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
