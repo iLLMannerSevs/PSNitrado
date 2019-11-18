@@ -45,50 +45,51 @@ function Get-NitradoDayzPS4Event
       BleedSources = '(?<BleedSources>\d+)'
     }
 
+    #PatternCollKey Status_Action_Pv(P|E)
     $PatternColl = [ordered]@{
-      Connected               = ('^{0}\s*\|\s*{1}\s*is\s*connected\s*\({2}\)$' -f
+      Conscious_Connected_X     = ('^{0}\s*\|\s*{1}\s*is\s*connected\s*\({2}\)$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId)
-      Disconnected            = ('^{0}\s*\|\s*{1}\s*\({2}\)\s*has\s*been\s*disconnected$' -f
+      Conscious_Disconnected_X  = ('^{0}\s*\|\s*{1}\s*\({2}\)\s*has\s*been\s*disconnected$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId)
-      Suicide2                = ('^{0}\s*\|\s*{1}\s*\({2}\)\s*committed\s*suicide\.$' -f
+      Dead_Suicide2_PvE         = ('^{0}\s*\|\s*{1}\s*\({2}\)\s*committed\s*suicide\.$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId)
-      Conscious               = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*regained\s*consciousness$' -f
+      Conscious_Regain_PvE      = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*regained\s*consciousness$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
-      Unconscious             = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
+      Unconscious_Drop_PvE      = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
-      UnconsciousDead         = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
+      Dead_UnconsciousDrop_PvE  = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*is\s*unconscious$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
-      Suicide1                = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*committed\s*suicide$' -f
+      Dead_Suicide1_PvE         = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*committed\s*suicide$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
-      HitByPlayerIntoWithDead = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s*into\s*{12}\s*for\s*{13}\s*damage\s*{14}$' -f
+      Dead_HitIntoWith_PvP      = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s*into\s*{12}\s*for\s*{13}\s*damage\s*{14}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByPlayerName, $Rx.ByPlayerId, $Rx.ByPosX, $Rx.ByPosY, $Rx.ByPosZ, $Rx.Into, $Rx.Damage, $Rx.With)
-      HitByXIntoWithDead      = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage\s*{10}$' -f
+      Dead_HitIntoWith_PvE      = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage\s*{10}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByX, $Rx.Into, $Rx.Damage, $Rx.With)
-      HitByXWithDead          = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*with\s*{8}$' -f
+      Dead_HitWith_PvE          = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*with\s*{8}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByX, $Rx.With)
-      HitByPlayerIntoWith     = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s+into\s*{12}\s*for\s*{13}\s*damage\s*{14}\s*$' -f
+      Conscious_HitIntoWith_PvP = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s+into\s*{12}\s*for\s*{13}\s*damage\s*{14}\s*$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByPlayerName, $Rx.ByPlayerId, $Rx.ByPosX, $Rx.ByPosY, $Rx.ByPosZ, $Rx.Into, $Rx.Damage, $Rx.With)
-      HitByPlayerInto         = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s*into\s*{12}\s*for\s*{13}\s*damage.*$' -f
+      Conscious_HitInto_PvP     = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*\({8}\s*{9}\s*{10}\s*{11}\)\s*into\s*{12}\s*for\s*{13}\s*damage.*$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByPlayerName, $Rx.ByPlayerId, $Rx.ByPosX, $Rx.ByPosY, $Rx.ByPosZ, $Rx.Into, $Rx.Damage)
-      HitByXIntoWith          = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage\s*{10}$' -f
+      Conscious_HitIntoWith_PvE = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage\s*{10}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.Into, $Rx.ByX, $Rx.Damage, $Rx.With)
-      HitByXInto              = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage$' -f
+      Conscious_HitInto_PvE     = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*into\s*{8}\s*for\s*{9}\s*damage$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByX, $Rx.Into, $Rx.Damage)
-      HitByXWith              = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*with\s*{8}$' -f
+      Conscious_HitWith_PvE     = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}\s*with\s*{8}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByX, $Rx.With)
-      HitByX                  = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}$' -f
+      Conscious_Hit_PVE         = ('^{0}\s*\|\s*{1}\s*\({2}\s*{3}\s*{4}\s*{5}\){6}\s*hit\s*by\s*{7}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.Hp, $Rx.ByX)
-      KilledByXWithDead       = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*with\s*{6}$' -f
+      Dead_KilledWith_PvE       = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*with\s*{6}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.ByX)
-      KilledByPlayerDead      = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*{6}\s*\({7}\s*{8}\s*{9}\s*{10}\)\s*with\s*{11}$' -f
+      Dead_Killed_PvP           = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*{6}\s*\({7}\s*{8}\s*{9}\s*{10}\)\s*with\s*{11}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.ByPlayerName, $Rx.ByPlayerId, $Rx.ByPosX, $Rx.ByPosY, $Rx.ByPosZ, $Rx.With)
-      KilledByXDead           = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*{6}$' -f
+      Dead_Killed_PvE           = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*killed\s*by\s*{6}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.ByX)
-      DiedDead                = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*died\.\s*Stats\>\s*Water:\s*{6}\s*Energy:\s*{7}\s*Bleed\s*sources:\s*{8}$' -f
+      Dead_Died_PvE             = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*died\.\s*Stats\>\s*Water:\s*{6}\s*Energy:\s*{7}\s*Bleed\s*sources:\s*{8}$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ, $Rx.ByX, $Rx.Water, $Rx.Energy, $Rx.BleedSources)
-      BledOutDead             = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*bled\s*out$' -f
+      Dead_BledOutPvE           = ('^{0}\s*\|\s*{1}\s*\(DEAD\)\s*\({2}\s*{3}\s*{4}\s*{5}\)\s*bled\s*out$' -f
         $Rx.Time, $Rx.PlayerName, $Rx.PlayerId, $Rx.PosX, $Rx.PosY, $Rx.PosZ)
-      LogEnd                  = '^\**EOF\**$'
+      LogEnd                    = '^\**EOF\**$'
     }
   }
 
